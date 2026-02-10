@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AgentCharacter : MonoBehaviour, IDamageable, IHealable
+public class AgentCharacter : MonoBehaviour, IDamageable, IHealable, IDirectionalMovable, IDirectionalRotatable
 {
     [SerializeField] private Transform _cameraTarget;
     private NavMeshAgent _agent;
@@ -41,6 +41,10 @@ public class AgentCharacter : MonoBehaviour, IDamageable, IHealable
 
     public ParticleSystem Vfx => _vfx;
     public Transform CameraTarget => _cameraTarget;
+
+    public Vector3 CurrentDirection => throw new NotImplementedException();
+
+    public Vector3 Position => throw new NotImplementedException();
 
     private void Awake()
     {
@@ -119,5 +123,10 @@ public class AgentCharacter : MonoBehaviour, IDamageable, IHealable
 
         if (_currentHealth > _maxHealth)
             _currentHealth = _maxHealth;
+    }
+
+    public void SetMoveDirection(Vector3 direction)
+    {
+        throw new NotImplementedException();
     }
 }

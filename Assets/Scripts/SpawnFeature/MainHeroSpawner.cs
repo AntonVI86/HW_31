@@ -19,7 +19,7 @@ public class MainHeroSpawner : MonoBehaviour
         AgentCharacter instance = Instantiate(_prefab, position, Quaternion.identity, null);
         _followCamera.Follow = instance.CameraTarget;
 
-        _controller = new KeyboardCharacterController(instance);
+        _controller = new CompositeController(new PlayerDirectionMoveableController(instance), new PlayerDirectionRotateableController(instance));
 
         _controller.Enable();
     }
