@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MainHeroSpawner : MonoBehaviour
 {
-    [SerializeField] private AgentCharacter _prefab;
+    [SerializeField] private Character _prefab;
     [SerializeField] private Transform _spawnPoint;
     [SerializeField] private CinemachineVirtualCamera _followCamera;
 
@@ -16,10 +16,12 @@ public class MainHeroSpawner : MonoBehaviour
 
     private void Spawn(Vector3 position)
     {
-        AgentCharacter instance = Instantiate(_prefab, position, Quaternion.identity, null);
+        Character instance = Instantiate(_prefab, position, Quaternion.identity, null);
         _followCamera.Follow = instance.CameraTarget;
 
-        _controller = new CompositeController(new PlayerDirectionMoveableController(instance), new PlayerDirectionRotateableController(instance));
+        _controller = new CompositeController
+            (new PlayerDirectionMoveableController(instance), 
+            new PlayerDirectionRotatableController(instance));
 
         _controller.Enable();
     }

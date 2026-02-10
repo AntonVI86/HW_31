@@ -16,8 +16,6 @@ public class DirectionalMover
 
     public Vector3 CurrentVelocity { get; private set; }
 
-    public Vector3 Position => throw new System.NotImplementedException();
-
     public void SetInputDirection(Vector3 direction) => _currentDirection = direction;
 
     public void Update(float deltaTime)

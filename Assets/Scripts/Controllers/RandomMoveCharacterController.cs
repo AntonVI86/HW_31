@@ -27,12 +27,12 @@ public class RandomMoveCharacterController : Controller
         if (_character.IsAlive == false)
             return;
 
-        _character.SetRotationDirection(_character.CurrentVelocity);
+        _character.SetRotationDirection(_character.CurrentDirection);
 
-        if (_character.TryGetPath(_targetPoint, _pathToTarget) == false)
-        {
-            SetTargetPoint();
-        }
+        //if (_character.TryGetPath(_targetPoint, _pathToTarget) == false)
+        //{
+        //    SetTargetPoint();
+        //}
 
         float distanceToTarget = NavMeshUtils.GetPathLength(_pathToTarget);
 
@@ -45,7 +45,7 @@ public class RandomMoveCharacterController : Controller
         if (EnoughCornersToPath(_pathToTarget))
         {
             _character.ResumeMove();
-            _character.SetDestination(_targetPoint);
+            _character.SetMoveDirection(_targetPoint);
             return;
         }
 

@@ -13,7 +13,6 @@ public class AgentCharacterView : MonoBehaviour
 
     [SerializeField] private Animator _animator;
     [SerializeField] private AgentCharacter _character;
-    [SerializeField] private PointToMoveDisplayer _pointDisplayer;
     [SerializeField] private AudioClip _hitSfx;
 
     private void OnEnable()
@@ -25,9 +24,7 @@ public class AgentCharacterView : MonoBehaviour
 
     private void Update()
     {
-        _animator.SetBool(IsJumpingKey, _character.InJumpProcess);
-
-        if (_character.CurrentVelocity.magnitude >= _minValueToMoveAnimation)
+        if (_character.CurrentDirection.magnitude >= _minValueToMoveAnimation)
             StartRunning();
         else
             StopRunning();
@@ -36,13 +33,11 @@ public class AgentCharacterView : MonoBehaviour
     private void StartRunning()
     {
         _animator.SetBool(IsRunningKey, true);
-        _pointDisplayer.Show();
     }
 
     private void StopRunning()
     {
         _animator.SetBool(IsRunningKey, false);
-        _pointDisplayer.Hide();
     }
 
     private void OnHited()

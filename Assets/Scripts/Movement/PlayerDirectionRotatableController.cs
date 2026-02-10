@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class PlayerDirectionRotateableController : Controller
+public class PlayerDirectionRotatableController : Controller
 {
     private IDirectionalRotatable _rotatable;
 
-    public PlayerDirectionRotateableController(IDirectionalRotatable rotatable)
+    public PlayerDirectionRotatableController(IDirectionalRotatable rotatable)
     {
         _rotatable = rotatable;
     }
