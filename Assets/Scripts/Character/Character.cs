@@ -20,16 +20,11 @@ public class Character : MonoBehaviour, IDirectionalMovable, IDirectionalRotatab
         _characterController = GetComponent<CharacterController>();
 
         _mover = new DirectionalMover(_characterController, 5);
-        _rotator = new DirectionalRotator(transform, 100f);
+        _rotator = new DirectionalRotator(transform, 800f);
     }
 
     private void Update()
     {
-        Vector3 inputDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-
-        SetMoveDirection(inputDirection);
-        SetRotationDirection(inputDirection);
-
         _mover.Update(Time.deltaTime);
         _rotator.Update(Time.deltaTime);
     }

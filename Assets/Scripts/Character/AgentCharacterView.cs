@@ -3,7 +3,6 @@ using UnityEngine;
 public class AgentCharacterView : MonoBehaviour
 {
     private readonly int IsRunningKey = Animator.StringToHash("IsRunning");
-    private readonly int IsJumpingKey = Animator.StringToHash("IsJumping");
     private readonly int HitKey = Animator.StringToHash("Hit");
     private readonly int DieKey = Animator.StringToHash("Die");
 

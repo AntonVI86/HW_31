@@ -20,8 +20,8 @@ public class MainHeroSpawner : MonoBehaviour
         _followCamera.Follow = instance.CameraTarget;
 
         _controller = new CompositeController
-            (new PlayerDirectionMoveableController(instance), 
-            new PlayerDirectionRotatableController(instance));
+            (new KeyboardPlayerController(instance)
+            );
 
         _controller.Enable();
     }
