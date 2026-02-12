@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 public class AgentCharacter : MonoBehaviour, IDamageable, IHealable, IDirectionalMovable, IDirectionalRotatable
 {
-    [SerializeField] private Transform _cameraTarget;
+    [SerializeField] private NavMeshAgent _agent;
 
     public event Action Hited;
     public event Action Healed;
@@ -32,12 +32,12 @@ public class AgentCharacter : MonoBehaviour, IDamageable, IHealable, IDirectiona
     public bool IsAlive => _currentHealth > 0;
 
     public ParticleSystem Vfx => _vfx;
-    public Transform CameraTarget => _cameraTarget;
 
     public Vector3 Position => throw new NotImplementedException();
 
     private void Awake()
     {
+        _mover = new AgentMover(_agent, 5);
         _currentHealth = _maxHealth;
 
         _rotator = new DirectionalRotator(transform, _rotationSpeed);
@@ -52,20 +52,20 @@ public class AgentCharacter : MonoBehaviour, IDamageable, IHealable, IDirectiona
     public void StopMove() => _mover.Stop();
     public void ResumeMove() => _mover.Resume();
     public void SetRotationDirection(Vector3 inputDirection) => _rotator.SetInputDirection(inputDirection);
-    //public bool TryGetPath(Vector3 targetPosition, NavMeshPath pathToTarget)
-    //    => NavMeshUtils.TryGetPath(_agent, targetPosition, pathToTarget);
+    public bool TryGetPath(Vector3 targetPosition, NavMeshPath pathToTarget)
+        => NavMeshUtils.TryGetPath(_agent, targetPosition, pathToTarget);
 
-    //public bool IsOnNavMeshLink(out OffMeshLinkData offMeshLinkData)
-    //{
-    //    if (_agent.isOnOffMeshLink)
-    //    {
-    //        offMeshLinkData = _agent.currentOffMeshLinkData;
-    //        return true;
-    //    }
+    public bool IsOnNavMeshLink(out OffMeshLinkData offMeshLinkData)
+    {
+        if (_agent.isOnOffMeshLink)
+        {
+            offMeshLinkData = _agent.currentOffMeshLinkData;
+            return true;
+        }
 
-    //    offMeshLinkData = default(OffMeshLinkData);
-    //    return false;
-    //}
+        offMeshLinkData = default(OffMeshLinkData);
+        return false;
+    }
 
     public void TakeDamage(float damage)
     {

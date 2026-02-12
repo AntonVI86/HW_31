@@ -1,8 +1,13 @@
+using System;
 using UnityEngine;
 
 public class Character : MonoBehaviour, IDirectionalMovable, IDirectionalRotatable
 {
     [SerializeField] private Transform _cameraTarget;
+
+    public event Action Hited;
+    public event Action Healed;
+    public event Action Died;
 
     private CharacterController _characterController;
 

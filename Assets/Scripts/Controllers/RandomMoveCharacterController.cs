@@ -29,10 +29,10 @@ public class RandomMoveCharacterController : Controller
 
         _character.SetRotationDirection(_character.CurrentDirection);
 
-        //if (_character.TryGetPath(_targetPoint, _pathToTarget) == false)
-        //{
-        //    SetTargetPoint();
-        //}
+        if (_character.TryGetPath(_targetPoint, _pathToTarget) == false)
+        {
+            SetTargetPoint();
+        }
 
         float distanceToTarget = NavMeshUtils.GetPathLength(_pathToTarget);
 

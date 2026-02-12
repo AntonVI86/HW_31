@@ -1,17 +1,15 @@
 using UnityEngine;
 
-public class AgentCharacterView : MonoBehaviour
+public class CharacterView : MonoBehaviour
 {
-    private readonly int IsRunningKey = Animator.StringToHash("IsRunning");
+    private readonly int IsRunningKey = Animator.StringToHash("IsRun");
     private readonly int HitKey = Animator.StringToHash("Hit");
     private readonly int DieKey = Animator.StringToHash("Die");
 
     private float _minValueToMoveAnimation = 0.05f;
-    private int _injureLayerIndex = 1;
-    private float _injureLayerWeight = 1;
 
     [SerializeField] private Animator _animator;
-    [SerializeField] private AgentCharacter _character;
+    [SerializeField] private Character _character;
     [SerializeField] private AudioClip _hitSfx;
 
     private void OnEnable()
@@ -43,11 +41,6 @@ public class AgentCharacterView : MonoBehaviour
     {
         _animator.SetTrigger(HitKey);
         AudioPlayer.Instance.PlaySound(_hitSfx);
-
-        if (_character.IsInjured == true)
-        {
-            _animator.SetLayerWeight(_injureLayerIndex, _injureLayerWeight);
-        }
     }
 
     private void OnDied()
@@ -57,8 +50,7 @@ public class AgentCharacterView : MonoBehaviour
 
     private void OnHealed()
     {
-        _animator.SetLayerWeight(_injureLayerIndex, 0);
-        _character.Vfx.Play();
+        //_character.Vfx.Play();
     }
 
     private void OnDisable()

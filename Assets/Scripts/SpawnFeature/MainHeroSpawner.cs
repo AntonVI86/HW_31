@@ -9,14 +9,9 @@ public class MainHeroSpawner : MonoBehaviour
 
     private Controller _controller;
 
-    private void Awake()
+    public Character Spawn()
     {
-        Spawn(_spawnPoint.position);
-    }
-
-    private void Spawn(Vector3 position)
-    {
-        Character instance = Instantiate(_prefab, position, Quaternion.identity, null);
+        Character instance = Instantiate(_prefab, _spawnPoint.position, Quaternion.identity, null);
         _followCamera.Follow = instance.CameraTarget;
 
         _controller = new CompositeController
@@ -24,6 +19,8 @@ public class MainHeroSpawner : MonoBehaviour
             );
 
         _controller.Enable();
+
+        return instance;
     }
 
     private void Update()
