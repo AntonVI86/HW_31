@@ -2,10 +2,8 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AgentCharacter : MonoBehaviour, IDamageable, IHealable, IDirectionalMovable, IDirectionalRotatable
+public class AgentCharacter : MonoBehaviour, IDamageable, IMovable, IDirectionalRotatable
 {
-    [SerializeField] private NavMeshAgent _agent;
-
     public event Action Hited;
     public event Action Healed;
     public event Action Died;
@@ -15,7 +13,7 @@ public class AgentCharacter : MonoBehaviour, IDamageable, IHealable, IDirectiona
 
     private float _currentHealth;
 
-    private float _healthToInjured = 30;
+    [SerializeField] private NavMeshAgent _agent;
 
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rotationSpeed;
@@ -27,20 +25,21 @@ public class AgentCharacter : MonoBehaviour, IDamageable, IHealable, IDirectiona
     public float CurrentHealth => _currentHealth;
     public float MaxHealth => _maxHealth;
 
-    public bool IsInjured => (_currentHealth / _maxHealth) * 100 <= _healthToInjured;
-
     public bool IsAlive => _currentHealth > 0;
 
     public ParticleSystem Vfx => _vfx;
 
     public Vector3 Position => throw new NotImplementedException();
 
-    private void Awake()
+    public void Initialize()
     {
         _mover = new AgentMover(_agent, 5);
         _currentHealth = _maxHealth;
 
         _rotator = new DirectionalRotator(transform, _rotationSpeed);
+
+        foreach (IInitializable initializable in GetComponentsInChildren<IInitializable>())
+            initializable.Initialize();
     }
 
     private void Update()

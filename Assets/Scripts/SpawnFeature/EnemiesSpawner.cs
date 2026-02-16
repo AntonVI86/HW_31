@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -9,7 +8,12 @@ public class EnemiesSpawner : MonoBehaviour
     [SerializeField] private float _radius;
     [SerializeField] private int _count;
 
-    private List<Controller> _controllers = new();
+    private ControllersUpdateService _controllersUpdateService;
+
+    public void Initialize(ControllersUpdateService controllersUpdateService)
+    {
+        _controllersUpdateService = controllersUpdateService;
+    }
 
     public void Spawn(Transform target)
     {
@@ -31,18 +35,13 @@ public class EnemiesSpawner : MonoBehaviour
             } while (NavMesh.SamplePosition(positionAroundTarget, out spawnPoint, 0.1f, queryFilter) == false);
 
             AgentCharacter instance = Instantiate(_prefab, spawnPoint.position, Quaternion.identity, null);
+            instance.Initialize();
 
             Controller controller = new RandomMoveCharacterController(instance, target.position);
 
             controller.Enable();
 
-            _controllers.Add(controller);
+            _controllersUpdateService.Add(controller);
         }
-    }
-
-    private void Update()
-    {
-        foreach (Controller controller in _controllers)
-            controller.Update(Time.deltaTime);
     }
 }

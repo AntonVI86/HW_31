@@ -1,7 +1,6 @@
 using UnityEngine;
 
-public interface IDirectionalMovable
+public interface IDirectionalMovable : IMovable
 {
-    Vector3 CurrentDirection { get; }
     void SetMoveDirection(Vector3 direction);
 }

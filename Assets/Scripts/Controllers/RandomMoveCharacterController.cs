@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class RandomMoveCharacterController : Controller
 {
-    private AgentCharacter _character;
+    private IMovable _movable;
 
     private Vector3 _defaultPosition;
     private Vector3 _targetPoint;
@@ -16,7 +16,7 @@ public class RandomMoveCharacterController : Controller
 
     public RandomMoveCharacterController(AgentCharacter character, Vector3 defaultPosition)
     {
-        _character = character;
+        _movable = character;
         _defaultPosition = defaultPosition;
 
         SetTargetPoint();
@@ -24,12 +24,12 @@ public class RandomMoveCharacterController : Controller
 
     public override void UpdateLogic(float deltaTime)
     {
-        if (_character.IsAlive == false)
+        if (_movable.IsAlive == false)
             return;
 
-        _character.SetRotationDirection(_character.CurrentDirection);
+        _movable.SetRotationDirection(_movable.CurrentDirection);
 
-        if (_character.TryGetPath(_targetPoint, _pathToTarget) == false)
+        if (_movable.TryGetPath(_targetPoint, _pathToTarget) == false)
         {
             SetTargetPoint();
         }
@@ -38,18 +38,18 @@ public class RandomMoveCharacterController : Controller
 
         if (IsTargetReached(distanceToTarget))
         {
-            _character.StopMove();
+            _movable.StopMove();
             SetTargetPoint();
         }
 
         if (EnoughCornersToPath(_pathToTarget))
         {
-            _character.ResumeMove();
-            _character.SetMoveDirection(_targetPoint);
+            _movable.ResumeMove();
+            _movable.SetMoveDirection(_targetPoint);
             return;
         }
 
-        _character.StopMove();
+        _movable.StopMove();
     }
 
     private void SetTargetPoint()

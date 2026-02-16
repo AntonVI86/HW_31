@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class KeyboardPlayerController : Controller
 {
-    private Character _character;
+    private MainHeroCharacter _character;
 
-    public KeyboardPlayerController(Character character)
+    public KeyboardPlayerController(MainHeroCharacter character)
     {
         _character = character;
     }

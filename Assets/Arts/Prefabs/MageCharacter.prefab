@@ -104,6 +104,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8105424667285109079}
   - component: {fileID: 6729211227047039171}
+  - component: {fileID: 4620027088215623162}
   m_Layer: 0
   m_Name: Mage
   m_TagString: Untagged
@@ -156,6 +157,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4620027088215623162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1658777936064942315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b54acc0be963c644ea107b1586ab7e30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1942606963424391688
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,9 +273,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1139415510540153811}
-  - component: {fileID: 8804781596473895292}
   - component: {fileID: 6432306855824362385}
-  - component: {fileID: 3129253092472752231}
+  - component: {fileID: 6265283330093806790}
   m_Layer: 0
   m_Name: MageCharacter
   m_TagString: Untagged
@@ -287,19 +299,6 @@ Transform:
   - {fileID: 6504920234137962314}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8804781596473895292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2399798871733290433}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 612c129a74475a941b25426436b2b940, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cameraTarget: {fileID: 6504920234137962314}
 --- !u!143 &6432306855824362385
 CharacterController:
   m_ObjectHideFlags: 0
@@ -326,7 +325,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.95, z: 0}
---- !u!114 &3129253092472752231
+--- !u!114 &6265283330093806790
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -335,12 +334,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2399798871733290433}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c010f410cbfd244ea75ed466eece8d7, type: 3}
+  m_Script: {fileID: 11500000, guid: 7c209a9e8b0374c46ac4194f9bd5f492, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 6729211227047039171}
-  _character: {fileID: 8804781596473895292}
-  _hitSfx: {fileID: 0}
+  _cameraTarget: {fileID: 6504920234137962314}
 --- !u!1 &2477950822034019043
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,28 +3,33 @@ using UnityEngine;
 
 public class MainHeroSpawner : MonoBehaviour
 {
-    [SerializeField] private Character _prefab;
+    [SerializeField] private MainHeroCharacter _prefab;
     [SerializeField] private Transform _spawnPoint;
     [SerializeField] private CinemachineVirtualCamera _followCamera;
 
-    private Controller _controller;
+    private ControllersUpdateService _controllersUpdateService;
 
-    public Character Spawn()
+    public void Initialize(ControllersUpdateService controllersUpdateService)
     {
-        Character instance = Instantiate(_prefab, _spawnPoint.position, Quaternion.identity, null);
+        _controllersUpdateService = controllersUpdateService;
+    }
+
+    public MainHeroCharacter Spawn()
+    {
+        MainHeroCharacter instance = Instantiate(_prefab, _spawnPoint.position, Quaternion.identity, null);
+
+        instance.Initialize();
+
         _followCamera.Follow = instance.CameraTarget;
 
-        _controller = new CompositeController
+        Controller controller = new CompositeController
             (new KeyboardPlayerController(instance)
             );
 
-        _controller.Enable();
+        controller.Enable();
+
+        _controllersUpdateService.Add(controller);
 
         return instance;
-    }
-
-    private void Update()
-    {
-        _controller?.Update(Time.deltaTime);
     }
 }

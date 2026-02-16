@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CharacterView : MonoBehaviour
+public class AgentCharacterView : MonoBehaviour, IInitializable
 {
     private readonly int IsRunningKey = Animator.StringToHash("IsRun");
     private readonly int HitKey = Animator.StringToHash("Hit");
@@ -9,14 +9,32 @@ public class CharacterView : MonoBehaviour
     private float _minValueToMoveAnimation = 0.05f;
 
     [SerializeField] private Animator _animator;
-    [SerializeField] private MainHeroCharacter _character;
+    [SerializeField] private AgentCharacter _character;
     [SerializeField] private AudioClip _hitSfx;
 
-    private void OnEnable()
+    public void Initialize()
     {
         _character.Hited += OnHited;
         _character.Died += OnDied;
         _character.Healed += OnHealed;
+    }
+
+    private void Update()
+    {
+        if (_character.CurrentDirection.magnitude >= _minValueToMoveAnimation)
+            StartRunning();
+        else
+            StopRunning();
+    }
+
+    private void StartRunning()
+    {
+        _animator.SetBool(IsRunningKey, true);
+    }
+
+    private void StopRunning()
+    {
+        _animator.SetBool(IsRunningKey, false);
     }
 
     private void OnHited()
